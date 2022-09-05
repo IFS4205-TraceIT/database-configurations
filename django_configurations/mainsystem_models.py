@@ -9,12 +9,11 @@ from django.db import models
 
 
 class Buildingaccess(models.Model):
-    user = models.OneToOneField('Users', models.DO_NOTHING, primary_key=True)
+    user = models.ForeignKey('Users', models.DO_NOTHING)
     building = models.ForeignKey('Buildings', models.DO_NOTHING)
     access_timestamp = models.DateTimeField()
 
     class Meta:
-        managed = False
         db_table = 'buildingaccess'
         unique_together = (('user', 'building', 'access_timestamp'),)
 
@@ -24,37 +23,33 @@ class Buildings(models.Model):
     location = models.IntegerField()
 
     class Meta:
-        managed = False
         db_table = 'buildings'
 
 
 class Closecontacts(models.Model):
-    infected_user = models.OneToOneField('Users', models.DO_NOTHING, primary_key=True)
-    contacted_user = models.ForeignKey('Users', models.DO_NOTHING)
+    infected_user = models.ForeignKey('Users', models.DO_NOTHING, related_name="infected_user")
+    contacted_user = models.ForeignKey('Users', models.DO_NOTHING, related_name="contacted_user")
     contact_timestamp = models.DateTimeField()
-    rssi = models.DecimalField(max_digits=65535, decimal_places=65535)
+    rssi = models.DecimalField(max_digits=10, decimal_places=2)
 
     class Meta:
-        managed = False
         db_table = 'closecontacts'
         unique_together = (('infected_user', 'contacted_user', 'contact_timestamp'),)
 
 
 class Contacttracers(models.Model):
-    uuid = models.IntegerField(primary_key=True)
+    id = models.UUIDField(primary_key=True)
 
     class Meta:
-        managed = False
         db_table = 'contacttracers'
 
 
 class Infectionhistory(models.Model):
-    user = models.OneToOneField('Users', models.DO_NOTHING, primary_key=True)
+    user = models.ForeignKey('Users', models.DO_NOTHING)
     recorded_timestamp = models.DateTimeField()
     has_uploaded = models.BooleanField(blank=True, null=True)
 
     class Meta:
-        managed = False
         db_table = 'infectionhistory'
         unique_together = (('user', 'recorded_timestamp'),)
 
@@ -67,11 +62,11 @@ class Notifications(models.Model):
     status = models.BooleanField(blank=True, null=True)
 
     class Meta:
-        managed = False
         db_table = 'notifications'
 
 
 class Users(models.Model):
+    id = models.UUIDField(primary_key=True)
     nric = models.TextField(unique=True)
     name = models.TextField()
     dob = models.DateField()
@@ -82,17 +77,15 @@ class Users(models.Model):
     zip_code = models.IntegerField()
 
     class Meta:
-        managed = False
         db_table = 'users'
 
 
 class Vaccinationhistory(models.Model):
-    user = models.OneToOneField(Users, models.DO_NOTHING, primary_key=True)
+    user = models.ForeignKey(Users, models.DO_NOTHING)
     vaccination = models.ForeignKey('Vaccinationtypes', models.DO_NOTHING)
     date_taken = models.DateField()
 
     class Meta:
-        managed = False
         db_table = 'vaccinationhistory'
         unique_together = (('user', 'vaccination', 'date_taken'),)
 
@@ -102,5 +95,4 @@ class Vaccinationtypes(models.Model):
     start_date = models.DateField()
 
     class Meta:
-        managed = False
         db_table = 'vaccinationtypes'
