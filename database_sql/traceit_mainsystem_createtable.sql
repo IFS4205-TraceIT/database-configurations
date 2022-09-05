@@ -1,7 +1,7 @@
 DROP table if exists CloseContacts, Notifications, InfectionHistory, VaccinationHistory, BuildingAccess, Users, Buildings, VaccinationTypes, ContactTracers;
 
 create table Users(
-	id serial primary key,
+	id uuid primary key,
 	nric text UNIQUE not NULL,
 	name text not null,
 	dob date not null,
@@ -19,7 +19,7 @@ create table Buildings(
 );
 
 create table BuildingAccess(
-	user_id integer references Users(id)
+	user_id uuid references Users(id)
 		ON DELETE CASCADE
 		ON UPDATE CASCADE,
 	building_id integer references Buildings(id)
@@ -36,7 +36,7 @@ create table VaccinationTypes(
 );
 
 create table VaccinationHistory(
-	user_id integer references Users(id)
+	user_id uuid references Users(id)
 		ON DELETE CASCADE
 		ON UPDATE CASCADE,
 	vaccination_id integer references VaccinationTypes(id)
@@ -47,7 +47,7 @@ create table VaccinationHistory(
 );
 
 create table InfectionHistory(
-	user_id integer references Users(id)
+	user_id uuid references Users(id)
 		ON DELETE CASCADE
 		ON UPDATE CASCADE,
 	recorded_timestamp TIMESTAMP not null,
@@ -56,27 +56,27 @@ create table InfectionHistory(
 );
 
 create table ContactTracers(
-	uuid integer primary key
+	id uuid primary key
 );
 
 create table Notifications(
 	id serial primary key,
 	due_date date,
 	start_date date,
-	tracer_id integer references ContactTracers(uuid)
+	tracer_id uuid references ContactTracers(id)
 		ON DELETE SET NULL
 		ON UPDATE CASCADE,
-	infected_user_id integer references Users(id)
+	infected_user_id uuid references Users(id)
 		ON UPDATE CASCADE
 		ON DELETE CASCADE,
 	status boolean default FALSE
 );
 
 create table CloseContacts(
-	infected_user_id integer references Users(id)
+	infected_user_id uuid references Users(id)
 		ON UPDATE CASCADE
 		ON DELETE CASCADE,
-	contacted_user_id integer references Users(id)
+	contacted_user_id uuid references Users(id)
 		ON UPDATE CASCADE
 		ON DELETE CASCADE,
 	contact_timestamp timestamp not null,
