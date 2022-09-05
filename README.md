@@ -20,3 +20,15 @@ DATABASES = {
 ```
 python3 manage.py inspectdb > models.py
 ```
+
+# How to import models.py into your app?
+1. Go to the folder ```django_configurations``` and get the models.py files.
+* mainsystem_models.py = contact tracer and building access database
+* research_models.py = researcher database
+2. Rename the file to models.py
+3. Copy and paste the file into the app folder
+4. Using manage.py and run the command ```python3 manage.py makemigrations <app name>```
+5. This will create the migrations files used for the database
+6. Using manage.py and run the command ```python3 manage.py migrate```
+7. This will update your database and create the tables defined in the models.py
+
