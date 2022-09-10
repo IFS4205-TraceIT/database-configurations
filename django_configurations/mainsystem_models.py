@@ -9,8 +9,8 @@ from django.db import models
 
 
 class Buildingaccess(models.Model):
-    user = models.ForeignKey('Users', models.DO_NOTHING)
-    building = models.ForeignKey('Buildings', models.DO_NOTHING)
+    user = models.ForeignKey('Users', on_delete=models.CASCADE)
+    building = models.ForeignKey('Buildings', on_delete=models.CASCADE)
     access_timestamp = models.DateTimeField()
 
     class Meta:
@@ -27,8 +27,8 @@ class Buildings(models.Model):
 
 
 class Closecontacts(models.Model):
-    infected_user = models.ForeignKey('Users', models.DO_NOTHING, related_name="infected_user")
-    contacted_user = models.ForeignKey('Users', models.DO_NOTHING, related_name="contacted_user")
+    infected_user = models.ForeignKey('Users', on_delete=models.CASCADE, related_name="infected_user")
+    contacted_user = models.ForeignKey('Users', on_delete=models.CASCADE, related_name="contacted_user")
     contact_timestamp = models.DateTimeField()
     rssi = models.DecimalField(max_digits=10, decimal_places=2)
 
@@ -45,7 +45,7 @@ class Contacttracers(models.Model):
 
 
 class Infectionhistory(models.Model):
-    user = models.ForeignKey('Users', models.DO_NOTHING)
+    user = models.ForeignKey('Users', on_delete=models.CASCADE)
     recorded_timestamp = models.DateTimeField()
     has_uploaded = models.BooleanField(blank=True, null=True)
 
@@ -57,9 +57,9 @@ class Infectionhistory(models.Model):
 class Notifications(models.Model):
     due_date = models.DateField(blank=True, null=True)
     start_date = models.DateField(blank=True, null=True)
-    tracer = models.ForeignKey(Contacttracers, models.DO_NOTHING, blank=True, null=True)
-    infected_user = models.ForeignKey('Users', models.DO_NOTHING, blank=True, null=True)
-    status = models.BooleanField(blank=True, null=True)
+    tracer = models.ForeignKey(Contacttracers, on_delete=models.SET_NULL, blank=True, null=True)
+    infection = models.ForeignKey(Infectionhistory, on_delete=models.CASCADE)
+    uploaded_status = models.BooleanField(blank=True, null=True)
 
     class Meta:
         db_table = 'notifications'
@@ -72,17 +72,17 @@ class Users(models.Model):
     dob = models.DateField()
     email = models.TextField(blank=True, null=True)
     phone = models.IntegerField()
-    gender = models.CharField(max_length=1)
+    gender = models.TextField()
     address = models.TextField()
-    zip_code = models.IntegerField()
+    postal_code = models.TextField()
 
     class Meta:
         db_table = 'users'
 
 
 class Vaccinationhistory(models.Model):
-    user = models.ForeignKey(Users, models.DO_NOTHING)
-    vaccination = models.ForeignKey('Vaccinationtypes', models.DO_NOTHING)
+    user = models.ForeignKey(Users, on_delete=models.CASCADE)
+    vaccination = models.ForeignKey('Vaccinationtypes', on_delete=models.CASCADE)
     date_taken = models.DateField()
 
     class Meta:

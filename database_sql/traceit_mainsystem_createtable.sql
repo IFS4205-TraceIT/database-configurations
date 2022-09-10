@@ -7,9 +7,9 @@ create table Users(
 	dob date not null,
 	email text,
 	phone INTEGER not null,
-	gender CHAR(1) not null,
+	gender text not null,
 	address text not null,
-	zip_code integer not null
+	postal_code text not null
 );
 
 create table Buildings(
@@ -19,6 +19,7 @@ create table Buildings(
 );
 
 create table BuildingAccess(
+	id serial primary key,
 	user_id uuid references Users(id)
 		ON DELETE CASCADE
 		ON UPDATE CASCADE,
@@ -26,7 +27,7 @@ create table BuildingAccess(
 		ON DELETE CASCADE
 		ON UPDATE CASCADE,
 	access_timestamp TIMESTAMP not null,
-	primary key(user_id, building_id, access_timestamp)
+	unique(user_id, building_id, access_timestamp)
 );
 
 create table VaccinationTypes(
@@ -36,6 +37,7 @@ create table VaccinationTypes(
 );
 
 create table VaccinationHistory(
+	id serial primary key,
 	user_id uuid references Users(id)
 		ON DELETE CASCADE
 		ON UPDATE CASCADE,
@@ -43,16 +45,17 @@ create table VaccinationHistory(
 		ON DELETE CASCADE
 		ON UPDATE CASCADE,
 	date_taken date not null,
-	primary key(user_id, vaccination_id, date_taken)
+	unique(user_id, vaccination_id, date_taken)
 );
 
 create table InfectionHistory(
+	id serial primary key,
 	user_id uuid references Users(id)
 		ON DELETE CASCADE
 		ON UPDATE CASCADE,
 	recorded_timestamp TIMESTAMP not null,
 	has_uploaded boolean DEFAULT FALSE,
-	primary key(user_id, recorded_timestamp)
+	unique(user_id, recorded_timestamp)
 );
 
 create table ContactTracers(
@@ -66,13 +69,14 @@ create table Notifications(
 	tracer_id uuid references ContactTracers(id)
 		ON DELETE SET NULL
 		ON UPDATE CASCADE,
-	infected_user_id uuid references Users(id)
+	infection_id integer references infectionhistory(id)
 		ON UPDATE CASCADE
 		ON DELETE CASCADE,
-	status boolean default FALSE
+	uploaded_status boolean default FALSE
 );
 
 create table CloseContacts(
+	id serial primary key,
 	infected_user_id uuid references Users(id)
 		ON UPDATE CASCADE
 		ON DELETE CASCADE,
@@ -81,7 +85,7 @@ create table CloseContacts(
 		ON DELETE CASCADE,
 	contact_timestamp timestamp not null,
 	rssi numeric not null,
-	primary key(infected_user_id, contacted_user_id, contact_timestamp),
+	unique(infected_user_id, contacted_user_id, contact_timestamp),
 	constraint different_user check(
 		infected_user_id <> contacted_user_id
 	)
