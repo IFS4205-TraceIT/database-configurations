@@ -47,7 +47,6 @@ class Contacttracers(models.Model):
 class Infectionhistory(models.Model):
     user = models.ForeignKey('Users', on_delete=models.CASCADE)
     recorded_timestamp = models.DateTimeField()
-    has_uploaded = models.BooleanField(blank=True, null=True)
 
     class Meta:
         db_table = 'infectionhistory'
@@ -58,7 +57,7 @@ class Notifications(models.Model):
     due_date = models.DateField(blank=True, null=True)
     start_date = models.DateField(blank=True, null=True)
     tracer = models.ForeignKey(Contacttracers, on_delete=models.SET_NULL, blank=True, null=True)
-    infection = models.ForeignKey(Infectionhistory, on_delete=models.CASCADE)
+    infection = models.OneToOneField(Infectionhistory, on_delete=models.CASCADE, primary_key = True)
     uploaded_status = models.BooleanField(blank=True, null=True)
 
     class Meta:

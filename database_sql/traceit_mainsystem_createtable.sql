@@ -54,7 +54,6 @@ create table InfectionHistory(
 		ON DELETE CASCADE
 		ON UPDATE CASCADE,
 	recorded_timestamp TIMESTAMP not null,
-	has_uploaded boolean DEFAULT FALSE,
 	unique(user_id, recorded_timestamp)
 );
 
@@ -63,7 +62,6 @@ create table ContactTracers(
 );
 
 create table Notifications(
-	id serial primary key,
 	due_date date,
 	start_date date,
 	tracer_id uuid references ContactTracers(id)
@@ -72,7 +70,8 @@ create table Notifications(
 	infection_id integer references infectionhistory(id)
 		ON UPDATE CASCADE
 		ON DELETE CASCADE,
-	uploaded_status boolean default FALSE
+	uploaded_status boolean default FALSE,
+	primary key(infection_id)
 );
 
 create table CloseContacts(
