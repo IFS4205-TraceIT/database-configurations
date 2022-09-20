@@ -31,10 +31,10 @@ class Closecontacts(models.Model):
     contacted_user = models.ForeignKey('Users', on_delete=models.CASCADE, related_name="contacted_user")
     contact_timestamp = models.DateTimeField()
     rssi = models.DecimalField(max_digits=10, decimal_places=2)
+    infectionhistory = models.ForeignKey('Infectionhistory', on_delete=models.CASCADE)
 
     class Meta:
         db_table = 'closecontacts'
-        unique_together = (('infected_user', 'contacted_user', 'contact_timestamp'),)
 
 
 class Contacttracers(models.Model):
