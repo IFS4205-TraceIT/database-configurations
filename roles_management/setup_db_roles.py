@@ -51,9 +51,11 @@ def revoke_public_permissions(database):
     conn.close()
 
 def create_db_roles(database):
-    sql_statement = """
+    drop_sql_statement = """
         DROP OWNED BY {role_name};
         DROP ROLE if exists {role_name};
+    """
+    sql_statement = """
         CREATE role {role_name};
         GRANT CONNECT ON DATABASE {database_name} TO {role_name};
         GRANT USAGE, CREATE ON SCHEMA public TO {role_name};
@@ -65,6 +67,20 @@ def create_db_roles(database):
     args = database[:-2] + superuser
     conn = db_con(args)
     cur = conn.cursor()
+    try:
+        cur.execute(
+            sql.SQL(
+                drop_sql_statement
+            ).format(
+                role_name = sql.Identifier(
+                    generic_role_name + database[2]
+                )
+            )
+        )
+        conn.commit()
+    except (Exception, psycopg2.DatabaseError) as error:
+        cur.execute("ROLLBACK")
+        conn.commit()
     try:
         cur.execute(
             sql.SQL(
