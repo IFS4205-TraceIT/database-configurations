@@ -1,6 +1,6 @@
 drop table if exists researchdata, researchers;
 create table researchdata(
-	id serial primary key,
+	id bigserial primary key,
 	dob text,
 	gender text,
 	postal_code text,
