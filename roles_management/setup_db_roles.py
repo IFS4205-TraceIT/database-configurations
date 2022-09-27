@@ -118,16 +118,15 @@ def main():
     # Remove permissions from public schema
     revoke_public_permissions(research_db)
     revoke_public_permissions(main_db)
-    #revoke_public_permissions(auth_db)
+    revoke_public_permissions(auth_db)
     # Create readwrite roles and link to public schema only
     create_db_roles(research_db)
     create_db_roles(main_db)
-    #create_db_roles(auth_db)
+    create_db_roles(auth_db)
     # Create users and grant them readwrite roles
     create_and_grant_permission_to_user(research_db)
-    #create_and_grant_permission_to_user(main_db)
-    #create_and_grant_permission_to_user(auth_db)
-    db_con(main_db)
+    create_and_grant_permission_to_user(main_db)
+    create_and_grant_permission_to_user(auth_db)
     #done
 
 if __name__ == '__main__':
