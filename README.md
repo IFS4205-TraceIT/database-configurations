@@ -46,17 +46,17 @@ python3 manage.py inspectdb > models.py
         VAULT_TOKEN="dev-only-token" \
         POSTGRES_HOST="127.0.0.1" \
         POSTGRES_PORT="5432" \
-        POSTGRES_DB="test1" \
-        POSTGRES_RESEARCH_DB="test2" \
-        POSTGRES_AUTH_DB="test3" \
+        POSTGRES_DB="traceit_test" \
+        POSTGRES_RESEARCH_DB="traceit_research_test" \
+        POSTGRES_AUTH_DB="traceit_main" \
         POSTGRES_USER="test1" \
         POSTGRES_RESEARCH_USER="test2" \
         POSTGRES_AUTH_USER="test3" \
         POSTGRES_PASSWORD="test1" \
         POSTGRES_RESEARCH_PASSWORD="test2" \
         POSTGRES_AUTH_PASSWORD="test3" \
-        POSTGRES_SUPER_USER="test4" \
-        POSTGRES_SUPER_PASSWORD="test4"
+        POSTGRES_SUPER_USER="postgres" \
+        POSTGRES_SUPER_PASSWORD="password"
     ```
 4. Run `poetry run python roles_management/setup_db_roles.py` to generate 3 normal users for each database
 
