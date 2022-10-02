@@ -9,6 +9,7 @@ packages = [{include = "database_configurations"}]
 [tool.poetry.dependencies]
 python = "^3.10"
 psycopg2-binary = "^2.9.3"
+Faker = "^15.0.0"
 
 
 [build-system]
