@@ -66,14 +66,14 @@ class Notifications(models.Model):
 
 class Users(models.Model):
     id = models.UUIDField(primary_key=True)
-    nric = models.TextField(unique=True)
-    name = models.TextField()
-    dob = models.DateField()
+    nric = models.TextField(blank=True, null=True)
+    name = models.TextField(blank=True, null=True)
+    dob = models.DateField(blank=True, null=True)
     email = models.TextField(blank=True, null=True)
-    phone = models.IntegerField()
-    gender = models.TextField()
-    address = models.TextField()
-    postal_code = models.TextField()
+    phone = models.TextField(blank=True, null=True)
+    gender = models.TextField(blank=True, null=True)
+    address = models.TextField(blank=True, null=True)
+    postal_code = models.TextField(blank=True, null=True)
 
     class Meta:
         db_table = 'users'
