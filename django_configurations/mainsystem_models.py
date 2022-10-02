@@ -70,7 +70,7 @@ class Users(models.Model):
     name = models.TextField(blank=True, null=True)
     dob = models.DateField(blank=True, null=True)
     email = models.TextField(blank=True, null=True)
-    phone = models.IntegerField(blank=True, null=True)
+    phone = models.TextField(blank=True, null=True)
     gender = models.TextField(blank=True, null=True)
     address = models.TextField(blank=True, null=True)
     postal_code = models.TextField(blank=True, null=True)

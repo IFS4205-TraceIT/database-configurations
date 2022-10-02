@@ -7,7 +7,7 @@ create table Users(
 	name text,
 	dob date,
 	email text,
-	phone INTEGER,
+	phone text,
 	gender text,
 	address text,
 	postal_code text
