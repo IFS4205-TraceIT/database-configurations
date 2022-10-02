@@ -3,14 +3,14 @@ DROP table if exists CloseContacts, Notifications, InfectionHistory, Vaccination
 
 create table Users(
 	id uuid primary key,
-	nric text,
-	name text,
-	dob date,
+	nric text unique not null,
+	name text not null,
+	dob date not null,
 	email text,
-	phone text,
-	gender text,
-	address text,
-	postal_code text
+	phone text not null,
+	gender text not null,
+	address text not null,
+	postal_code text not null
 );
 
 create table Buildings(
