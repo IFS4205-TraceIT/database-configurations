@@ -59,5 +59,7 @@ python3 manage.py inspectdb > models.py
         POSTGRES_SUPER_PASSWORD="test4"
     ```
 4. Run `poetry run python roles_management/setup_db_roles.py` to generate 3 normal users for each database
+5. Run `poetry run python sampledata/generate.py <number of users>` to generate <x> amount of users
+    Eg: `poetry run python sampledata/generate.py 1000`
 
 
