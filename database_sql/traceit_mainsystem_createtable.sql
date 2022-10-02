@@ -1,15 +1,16 @@
+DROP view if exists researchdata;
 DROP table if exists CloseContacts, Notifications, InfectionHistory, VaccinationHistory, BuildingAccess, Users, Buildings, VaccinationTypes, ContactTracers;
 
 create table Users(
 	id uuid primary key,
-	nric text UNIQUE not NULL,
-	name text not null,
-	dob date not null,
+	nric text,
+	name text,
+	dob date,
 	email text,
-	phone INTEGER not null,
-	gender text not null,
-	address text not null,
-	postal_code text not null
+	phone INTEGER,
+	gender text,
+	address text,
+	postal_code text
 );
 
 create table Buildings(
