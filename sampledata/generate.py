@@ -37,8 +37,10 @@ def user_generate(conn, total):
         try:
             cur.execute(insert_user_sql,(id,nric,name,dob,email,phone,gender,address,postal_code))
         except (Exception, psycopg2.DatabaseError) as error:
+            cur.execute("ROLLBACK")
+            conn.commit()
             print(error)
-    conn.commit()
+        conn.commit()
     cur.close()
 
 def vaccine_generate(conn):
