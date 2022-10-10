@@ -85,11 +85,32 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'HOST': os.environ['POSTGRES_HOST'],
         'PORT': os.environ['POSTGRES_PORT'],
+        'NAME': os.environ['POSTGRES_AUTH_DB'],
+        'USER': os.environ['POSTGRES_USER'],
+        'PASSWORD': os.environ['POSTGRES_PASSWORD'],
+    },
+    'main_db': {
+        'NAME': 'main_db_name',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'HOST': os.environ['POSTGRES_HOST'],
+        'PORT': os.environ['POSTGRES_PORT'],
         'NAME': os.environ['POSTGRES_DB'],
+        'USER': os.environ['POSTGRES_USER'],
+        'PASSWORD': os.environ['POSTGRES_PASSWORD'],
+    },
+    'researchs_db': {
+        'NAME': 'researchs_db_name',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'HOST': os.environ['POSTGRES_HOST'],
+        'PORT': os.environ['POSTGRES_PORT'],
+        'NAME': os.environ['POSTGRES_RESEARCH_DB'],
         'USER': os.environ['POSTGRES_USER'],
         'PASSWORD': os.environ['POSTGRES_PASSWORD'],
     }
 }
+
+#'database_routers.main.MainRouter'
+DATABASE_ROUTERS = ['database_routers.default.DefaultRouter','database_routers.main.MainRouter','database_routers.researchs.ResearchsRouter']
 
 # DEFAULT USER MODEL
 AUTH_USER_MODEL = 'accounts.AuthUser'
