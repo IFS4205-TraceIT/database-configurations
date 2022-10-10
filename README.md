@@ -84,16 +84,16 @@ python3 manage.py inspectdb > models.py
 0. Ensure the respective databases are created and users configured.
 
 1. Initialize all tables for each of the databases
-For Research DB:
-`poetry run python manage.py migrate researchs --database researchs_db`
-For Main DB:
-`poetry run python manage.py migrate main --database main_db`
-For Auth DB:
-`poetry run python manage.py migrate`
+    * For Research DB:
+        ** `poetry run python manage.py migrate researchs --database researchs_db`
+    * For Main DB:
+        ** `poetry run python manage.py migrate main --database main_db`
+    * For Auth DB:
+        ** `poetry run python manage.py migrate`
 
 2. [optional] Generate mock data for main database 
-Run `poetry run python sampledata/generate.py <number of users>` to generate <x> amount of users
-Eg: `poetry run python sampledata/generate.py 1000`
+    * Run `poetry run python sampledata/generate.py <number of users>` to generate <x> amount of users
+        ** Eg: `poetry run python sampledata/generate.py 1000`
 
 3. Done
 
