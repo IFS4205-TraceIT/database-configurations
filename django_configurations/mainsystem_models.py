@@ -19,6 +19,7 @@ class Buildingaccess(models.Model):
 
 
 class Buildings(models.Model):
+    id = models.UUIDField(primary_key=True)
     name = models.TextField()
     location = models.IntegerField()
 
