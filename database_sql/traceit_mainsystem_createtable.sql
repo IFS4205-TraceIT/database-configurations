@@ -14,7 +14,7 @@ create table Users(
 );
 
 create table Buildings(
-	id bigserial primary key,
+	id uuid primary key,
 	name text not null,
 	location integer not null
 );
@@ -24,7 +24,7 @@ create table BuildingAccess(
 	user_id uuid references Users(id)
 		ON DELETE CASCADE
 		ON UPDATE CASCADE,
-	building_id integer references Buildings(id)
+	building_id uuid references Buildings(id)
 		ON DELETE CASCADE
 		ON UPDATE CASCADE,
 	access_timestamp TIMESTAMP not null,
