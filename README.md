@@ -70,13 +70,17 @@ python3 manage.py inspectdb > models.py
         POSTGRES_HOST="127.0.0.1" \
         POSTGRES_PORT="5432" \
         POSTGRES_DB="test1" \
-        POSTGRES_RESEARCH_DB="test2" \
-        POSTGRES_AUTH_DB="test3" \
         POSTGRES_USER="test1" \
-        POSTGRES_RESEARCH_USER="test2" \
-        POSTGRES_AUTH_USER="test3" \
         POSTGRES_PASSWORD="test1" \
+        POSTGRES_RESEARCH_HOST="127.0.0.1" \
+        POSTGRES_RESEARCH_PORT="5432" \
+        POSTGRES_RESEARCH_DB="test2" \
+        POSTGRES_RESEARCH_USER="test2" \
         POSTGRES_RESEARCH_PASSWORD="test2" \
+        POSTGRES_AUTH_HOST="127.0.0.1" \
+        POSTGRES_AUTH_PORT="5432" \
+        POSTGRES_AUTH_DB="test3" \
+        POSTGRES_AUTH_USER="test3" \
         POSTGRES_AUTH_PASSWORD="test3"
     ```
 ## Setup Phases
