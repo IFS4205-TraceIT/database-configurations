@@ -6,6 +6,7 @@
 #   * Remove `managed = False` lines if you wish to allow Django to create, modify, and delete the table
 # Feel free to rename the models, but don't rename db_table values or field names.
 from django.db import models
+import uuid
 
 
 class Buildingaccess(models.Model):
@@ -19,7 +20,7 @@ class Buildingaccess(models.Model):
 
 
 class Buildings(models.Model):
-    id = models.UUIDField(primary_key=True)
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.TextField()
     location = models.IntegerField()
 
@@ -66,7 +67,7 @@ class Notifications(models.Model):
 
 
 class Users(models.Model):
-    id = models.UUIDField(primary_key=True)
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     nric = models.TextField(unique=True)
     name = models.TextField()
     dob = models.DateField()
