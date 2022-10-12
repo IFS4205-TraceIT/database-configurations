@@ -88,6 +88,12 @@ DATABASES = {
         'NAME': os.environ['POSTGRES_AUTH_DB'],
         'USER': os.environ['POSTGRES_AUTH_USER'],
         'PASSWORD': os.environ['POSTGRES_AUTH_PASSWORD'],
+        'OPTIONS': {} if DEBUG else {
+            'sslmode': 'verify-ca',
+            'sslcert': os.environ['POSTGRES_AUTH_SSL_CERT'],
+            'sslkey': os.environ['POSTGRES_AUTH_SSL_KEY'],
+            'sslrootcert': os.environ['POSTGRES_AUTH_SSL_ROOT_CERT'],
+        },
     },
     'main_db': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -96,6 +102,12 @@ DATABASES = {
         'NAME': os.environ['POSTGRES_DB'],
         'USER': os.environ['POSTGRES_USER'],
         'PASSWORD': os.environ['POSTGRES_PASSWORD'],
+        'OPTIONS': {} if DEBUG else {
+            'sslmode': 'verify-ca',
+            'sslcert': os.environ['POSTGRES_SSL_CERT'],
+            'sslkey': os.environ['POSTGRES_SSL_KEY'],
+            'sslrootcert': os.environ['POSTGRES_SSL_ROOT_CERT'],
+        },
     },
     'researchs_db': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -104,6 +116,12 @@ DATABASES = {
         'NAME': os.environ['POSTGRES_RESEARCH_DB'],
         'USER': os.environ['POSTGRES_RESEARCH_USER'],
         'PASSWORD': os.environ['POSTGRES_RESEARCH_PASSWORD'],
+        'OPTIONS': {} if DEBUG else {
+            'sslmode': 'verify-ca',
+            'sslcert': os.environ['POSTGRES_RESEARCH_SSL_CERT'],
+            'sslkey': os.environ['POSTGRES_RESEARCH_SSL_KEY'],
+            'sslrootcert': os.environ['POSTGRES_RESEARCH_SSL_ROOT_CERT'],
+        },
     }
 }
 
