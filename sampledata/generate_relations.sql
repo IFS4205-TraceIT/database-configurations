@@ -61,6 +61,20 @@ BEGIN
 				END;
 			END LOOP;
 		end if;
+		-- Generate Buildingaccess
+		ballot := (select floor(random()*(15-0+1))+0);
+		for i in 1..ballot LOOP
+			random_date_time := (
+				select timestamp '2020-01-01 00:00:00' +
+			   random() * (NOW() -
+						   timestamp '2020-01-01 00:00:00')
+								);
+			temp_user_id := (select id from buildings order by random() limit 1);
+			BEGIN
+				insert into buildingaccess(user_id, building_id, access_timestamp) values(current_user_id, temp_user_id, random_date_time);
+			EXCEPTION WHEN unique_violation THEN
+			END;
+		END LOOP;
 		-- raise notice 'Value: %', row;
 	END LOOP;
 end;$$
