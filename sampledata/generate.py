@@ -21,12 +21,16 @@ insert_vaccine_sql = """
     INSERT INTO vaccinationtypes(name,start_date) values(%s,%s);
 """
 
+insert_building_sql = """
+    INSERT INTO buildings(id, name,location) values(%s,%s,%s);
+"""
+
 def user_generate(conn, total):
     fake = Faker()
     cur = conn.cursor()
     for x in range(total):
         name = fake.name()
-        dob = fake.date_of_birth()
+        dob = fake.date_of_birth(None,0,100)
         email = name.lower().replace(" ", "")+"@"+fake.domain_name()
         phone = fake.pyint(80000000,99999999)
         gender = random.choice(["Male","Female"])
@@ -54,6 +58,29 @@ def vaccine_generate(conn):
     for each in list_of_vaccines:
         try:
             cur.execute(insert_vaccine_sql,(each[0],each[1]))
+        except (Exception, psycopg2.DatabaseError) as error:
+            print(error)
+    conn.commit()
+    cur.close()
+
+def building_generate(conn):
+    cur = conn.cursor()
+    list_of_buildings = [
+        ['Bugis Junction',188024],
+        ['Far East Plaza',228213],
+        ['ION Orchard',238801],
+        ['Bedok Mall',467360],
+        ['NEX',556083],
+        ['JCube',609731],
+        ['Rivervale Mall',545082],
+        ['Paya Lebar Square',409051],
+        ['Rochester Mall',138639],
+        ['IMM',609601]
+    ]
+    for each in list_of_buildings:
+        try:
+            id = str(uuid.uuid4())
+            cur.execute(insert_building_sql,(id,each[0],each[1]))
         except (Exception, psycopg2.DatabaseError) as error:
             print(error)
     conn.commit()
@@ -106,6 +133,7 @@ def main():
     # Generate data for primary tables
     user_generate(conn, total_user)
     vaccine_generate(conn)
+    building_generate(conn)
     print("Generating relations...")
     # Generate secondary tables data
     execute_sql(conn, basefolder + relation_file)
