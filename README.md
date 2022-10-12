@@ -55,6 +55,39 @@ python3 manage.py inspectdb > models.py
 1. Run `poetry run python roles_management/setup_db_roles.py` to generate 3 normal users for each database
 
 # Setting up for PRODUCTION
+## Setting up database and users roles
+* Create 3 databases
+```
+CREATE DATABASE authdb;
+
+CREATE DATABASE researchsdb;
+
+CREATE DATABASE maindb;
+
+```
+* Create a role per database
+```
+CREATE role authdb_readwrite;
+
+CREATE role researchsdb_readwrite;
+
+CREATE role maindb_readwrite;
+
+```
+* Assign permissions to each role, change user1, user2, user3 accordingly.
+```
+REVOKE CONNECT ON DATABASE authdb FROM PUBLIC;
+GRANT CONNECT ON DATABASE authdb TO authdb_readwrite;
+GRANT authdb_readwrite TO user1;
+
+REVOKE CONNECT ON DATABASE researchsdb FROM PUBLIC;
+GRANT CONNECT ON DATABASE researchsdb TO researchsdb_readwrite;
+GRANT researchsdb_readwrite TO user2;
+
+REVOKE CONNECT ON DATABASE maindb FROM PUBLIC;
+GRANT CONNECT ON DATABASE maindb TO maindb_readwrite;
+GRANT maindb_readwrite TO user3;
+```
 ## Installation and Setting environment variables
 1. Ensure you have the following installed:
     * Python: `3.10` or above
