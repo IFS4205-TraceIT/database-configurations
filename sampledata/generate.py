@@ -128,7 +128,7 @@ def main():
         exit(1)
 
     # Generate initial tables
-    execute_sql(conn, database_folder + database_file)
+    # execute_sql(conn, database_folder + database_file)
     print("Generating primaries...")
     # Generate data for primary tables
     user_generate(conn, total_user)
