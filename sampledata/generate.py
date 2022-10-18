@@ -11,7 +11,7 @@ database_file = "traceit_mainsystem_createtable.sql"
 basefolder = os.getcwd() + '/sampledata/'
 relation_file = "generate_relations.sql"
 
-db = [os.environ['POSTGRES_HOST'],os.environ['POSTGRES_PORT'],os.environ['POSTGRES_DB'],os.environ['POSTGRES_USER'],os.environ['POSTGRES_PASSWORD']]
+db = [os.environ['POSTGRES_HOST'],os.environ['POSTGRES_PORT'],os.environ['POSTGRES_DB'],os.environ['POSTGRES_USER'],os.environ['POSTGRES_PASSWORD'],os.environ['POSTGRES_SSL_CERT'],os.environ['POSTGRES_SSL_KEY'],os.environ['POSTGRES_SSL_ROOT_CERT']]
 
 insert_user_sql = """
     INSERT INTO users values(%s,%s,%s,%s,%s,%s,%s,%s,%s);
@@ -100,7 +100,11 @@ def db_con(dbargs):
             host=dbargs[0],
             database=dbargs[2],
             user=dbargs[3],
-            password=dbargs[4]
+            password=dbargs[4],
+            sslmode="verify-ca",
+            sslcert=dbargs[5],
+            sslkey=dbargs[6],
+            sslrootcert=dbargs[7]
         )
         return conn
     except (Exception, psycopg2.DatabaseError) as error:
