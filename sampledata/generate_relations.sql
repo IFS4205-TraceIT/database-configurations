@@ -53,7 +53,7 @@ BEGIN
 				   random() * ((select temp_timestamp) -
 							   ((select temp_timestamp) - INTERVAL '14 DAY'))
 									);
-				temp_int := (select floor(random()*(100-1+1))+1);
+				temp_int := (select -(floor(random()*(90-10+1))+10));
 				BEGIN
 					insert into closecontacts(infected_user_id, contacted_user_id, contact_timestamp, rssi, infectionhistory_id) 
 					values(current_user_id, temp_user_id, random_date_time, temp_int, temp_infectionh_id);
