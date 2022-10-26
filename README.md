@@ -50,8 +50,7 @@ python3 manage.py inspectdb > models.py
         POSTGRES_RESEARCH_PASSWORD="test2" \
         POSTGRES_AUTH_PASSWORD="test3" \
         POSTGRES_SUPER_USER="test4" \
-        POSTGRES_SUPER_PASSWORD="test4" \
-        DJANGO_SECRET_KEY = "test"
+        POSTGRES_SUPER_PASSWORD="test4"
 ```
 1. Run `poetry run python roles_management/setup_db_roles.py` to generate 3 normal users for each database
 
