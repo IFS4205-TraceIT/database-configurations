@@ -25,6 +25,8 @@ DEBUG = (os.environ.get('DJANGO_DEBUG') == "True")
 
 ALLOWED_HOSTS = []
 
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = 'django-insecure-g4-g65#otu)9e!0egsovo00ui=f0aetkvsi1afb2bj84y0xxx5'
 
 # Application definition
 
